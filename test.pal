@@ -1,1 +1,1 @@
-output("Hello"))
+var a = 1 + 2

@@ -1,3 +1,3 @@
 
 def output(data) -> None:
-    print()
+    print(data)
