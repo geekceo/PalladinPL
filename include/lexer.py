@@ -2,11 +2,12 @@ import include.analyzer
 
 def token_type(token: str):
     """Check INT"""
-    try:
-        float(token)
-        return 'float'
-    except:
-        pass
+    if '.' in token:
+        try:
+            float(token)
+            return 'float'
+        except:
+            pass
 
     """Check FLOAT"""
     try:
@@ -36,11 +37,6 @@ def lexer(line: str) -> dict:
 
     for index, token in enumerate(tokens):
         t_id = token_type(token)
-        if token.isdigit():
-            t_id = 'int'
-        elif token.isnumeric():
-            t_id = 'float'
-
         tree[index] = {token:t_id}
 
     return "\n".join(f"{k}:{v}" for k,v in tree.items())

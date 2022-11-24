@@ -7,18 +7,22 @@ import libs.iostream
 
 ops_list = ['+', '-', '*', '/', '=']
 
-syntax_keys_list = [
+
+macros_keys_list = [
     'var',
-    'func',
+    'del',
     'input',
-    'output',
+    'output'
+]
+
+block_keys_list = [
     'for',
-    'while'
+    'while',
+    'func'
 ]
 
 tokens_id = {
-    'op': ops_list,
-    'syntax': syntax_keys_list
+    'op': ops_list
 }
 
 start_block = ':'

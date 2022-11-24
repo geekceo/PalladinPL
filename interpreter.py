@@ -4,19 +4,7 @@ import include.parser
 import include.lexer
 import include.analyzer
 
-tree = {}
-syntax = {}
-ops = {}
-strokes = {}
-
-buff = []
-
-stop_chars = [
-    include.analyzer.str_start,
-    include.analyzer.bracket_start,
-    include.analyzer.start_block,
-    ' '
-] + include.analyzer.ops_list
+ops_counter = {}
 
 if (sys.argv[1]):
     with open(sys.argv[1], 'r') as f:
@@ -24,8 +12,10 @@ if (sys.argv[1]):
 
         for index, line in enumerate(f):
 
-            print(include.lexer.lexer(line))
+            lt = include.lexer.lexer(line)
+            print(lt)
 
+            
 
             #while include.parser.isBrackets(line):
             #    line = include.parser.bracketsContent(line)
