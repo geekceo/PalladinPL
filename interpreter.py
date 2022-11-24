@@ -13,7 +13,7 @@ if (sys.argv[1]):
         for index, line in enumerate(f):
 
             lt = include.lexer.lexer(line)
-            print(lt)
+            #print(lt)
 
             
 

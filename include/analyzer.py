@@ -1,19 +1,27 @@
 import include.parser
 import include.analyzer
 import libs.iostream
+import libs.macses
+import libs.ops
 
 
 """Tokens"""
 
-ops_list = ['+', '-', '*', '/', '=']
+ops_dict = {
+    '+': libs.ops.plus,
+    '-': libs.ops.minus,
+    '*': libs.ops.mult,
+    '/': libs.ops.divi,
+    '=': libs.ops.eq
+    }
 
 
-macros_keys_list = [
-    'var',
-    'del',
-    'input',
-    'output'
-]
+macros_keys_dict = {
+    'var': libs.macses.var,
+    'del': None,
+    'input': None,
+    'output': libs.iostream.output
+}
 
 block_keys_list = [
     'for',
@@ -21,8 +29,16 @@ block_keys_list = [
     'func'
 ]
 
+type_keys_dict = {
+    'int': int,
+    'float': float,
+    'str': str
+}
+
 tokens_id = {
-    'op': ops_list
+    'op': ops_dict,
+    'macros': macros_keys_dict,
+    'block': block_keys_list,
 }
 
 start_block = ':'

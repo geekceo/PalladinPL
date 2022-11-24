@@ -1,4 +1,5 @@
 import include.analyzer
+import include.AST
 
 def token_type(token: str):
     """Check INT"""
@@ -17,7 +18,9 @@ def token_type(token: str):
         pass
 
     """Check OTHER"""
-    return 'op' if token in include.analyzer.ops_list else 'syntax'
+    return 'op' if token in include.analyzer.ops_dict.keys() else 'block' \
+                                    if token in include.analyzer.block_keys_list else 'macros'\
+                                    if token in include.analyzer.macros_keys_dict.keys() else 'var_name'
 
 
 
@@ -37,6 +40,10 @@ def lexer(line: str) -> dict:
 
     for index, token in enumerate(tokens):
         t_id = token_type(token)
-        tree[index] = {token:t_id}
+        tree[index] = [token,t_id]
 
-    return "\n".join(f"{k}:{v}" for k,v in tree.items())
+    #return tree#"\n".join(f"{k}:{v}" for k,v in tree.items())
+
+    ast = include.AST.AST()
+
+    ast.build(tree)
