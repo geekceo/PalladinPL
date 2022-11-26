@@ -41,6 +41,10 @@ tokens_id = {
     'block': block_keys_list,
 }
 
+exception_types = {
+    'ZeroDiv': 'ZeroDivisionError: division by zero'
+}
+
 start_block = ':'
 
 newline_block = ['   ', ' '*4]

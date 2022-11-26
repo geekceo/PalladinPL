@@ -42,6 +42,8 @@ def lexerToAST(line: str) -> dict:
         t_id = token_type(token)
         tree[index] = [token,t_id]
 
+    print(tree)
+
     #return tree#"\n".join(f"{k}:{v}" for k,v in tree.items())
 
     ast = include.AST.AST()

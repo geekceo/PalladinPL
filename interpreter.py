@@ -16,10 +16,14 @@ inter_calcs = {}
 line_variables = {}
 
 if (sys.argv[1]):
-    with open(sys.argv[1], 'r') as f:
+    file = sys.argv[1]
+
+    with open(file, 'r') as f:
         time_start = time.time()
 
         for index, line in enumerate(f):
+
+            line_num = index + 1
 
             lt = include.lexer.lexerToAST(line)
             print(f'{lt["commands"]}\n\n{lt["linker"]}')
@@ -29,15 +33,16 @@ if (sys.argv[1]):
                     prev_index = libs.builtin.getPairByIndex(k.split(':')[0], lt['commands'])
                     next_index = libs.builtin.getPairByIndex(k.split(':')[1], lt['commands'])
 
-                    prev_val = prev_index[libs.builtin.getKeyFromDictPair(prev_index)](libs.builtin.getKeyFromDictPair(prev_index))
-                    next_val = next_index[libs.builtin.getKeyFromDictPair(next_index)](libs.builtin.getKeyFromDictPair(next_index))
+                    prev_val = prev_index[libs.builtin.getKeyFromDictPair(prev_index)](libs.builtin.getKeyFromDictPair(prev_index).split(':')[1])
+                    next_val = next_index[libs.builtin.getKeyFromDictPair(next_index)](libs.builtin.getKeyFromDictPair(next_index).split(':')[1])
 
-                    inter_calcs[k] = include.analyzer.ops_dict[v[0]](prev_val, next_val)
+                    inter_calcs[k] = include.analyzer.ops_dict[v[0]](vara=prev_val, varb=next_val, file=file, line_num=line_num, line_content=line)
+
+                    if inter_calcs[k] == False:
+                        break
 
 
                     break
-
-                
 
         print(inter_calcs)
 
