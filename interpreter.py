@@ -4,7 +4,16 @@ import include.parser
 import include.lexer
 import include.analyzer
 
+import libs.builtin
+import libs.iostream
+
 ops_counter = {}
+
+line_buffer = ''
+
+inter_calcs = {}
+
+line_variables = {}
 
 if (sys.argv[1]):
     with open(sys.argv[1], 'r') as f:
@@ -12,10 +21,28 @@ if (sys.argv[1]):
 
         for index, line in enumerate(f):
 
-            lt = include.lexer.lexer(line)
-            #print(lt)
+            lt = include.lexer.lexerToAST(line)
+            print(f'{lt["commands"]}\n\n{lt["linker"]}')
 
-            
+            for k, v in reversed(lt['linker'].items()):
+                if v[0] in include.analyzer.ops_dict.keys():
+                    prev_index = libs.builtin.getPairByIndex(k.split(':')[0], lt['commands'])
+                    next_index = libs.builtin.getPairByIndex(k.split(':')[1], lt['commands'])
+
+                    prev_val = prev_index[libs.builtin.getKeyFromDictPair(prev_index)](libs.builtin.getKeyFromDictPair(prev_index))
+                    next_val = next_index[libs.builtin.getKeyFromDictPair(next_index)](libs.builtin.getKeyFromDictPair(next_index))
+
+                    inter_calcs[k] = include.analyzer.ops_dict[v[0]](prev_val, next_val)
+
+
+                    break
+
+                
+
+        print(inter_calcs)
+
+
+
 
             #while include.parser.isBrackets(line):
             #    line = include.parser.bracketsContent(line)

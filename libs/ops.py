@@ -12,5 +12,5 @@ def mult(vara:any, varb:any):
 def divi(vara:any, varb:any):
     return vara / varb
 
-def eq(varfin:any, vara:any, var_type:str):
+def eq(varfin:any, vara:any):
     return vara

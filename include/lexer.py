@@ -24,7 +24,7 @@ def token_type(token: str):
 
 
 
-def lexer(line: str) -> dict:
+def lexerToAST(line: str) -> dict:
     tokens = []
     tree = {}
     lex = ''
@@ -46,4 +46,4 @@ def lexer(line: str) -> dict:
 
     ast = include.AST.AST()
 
-    ast.build(tree)
+    return ast.build(tree)
